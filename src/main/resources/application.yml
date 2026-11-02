@@ -1,0 +1,27 @@
+server:
+  port: ${APP_PORT:8080}
+spring:
+  # 项目根目录的私有配置不参与打包；部署时也可直接注入同名环境变量。
+  config:
+    import: optional:file:./application-local.properties
+  application:
+    name: aws-s3-upload-v2
+  datasource:
+    url: ${MYSQL_URL:jdbc:mysql://localhost:3306/winter_upload_v2?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai}
+    username: ${MYSQL_USER:winter_upload}
+    password: ${MYSQL_PASSWORD}
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+    password: ${REDIS_PASSWORD:}
+  servlet:
+    multipart:
+      max-file-size: 9MB
+      max-request-size: 9MB
+winter-aws:
+  endpoint: ${RUSTFS_ENDPOINT:http://localhost:9000}
+  region: ${RUSTFS_REGION:us-east-1}
+  access-key: ${RUSTFS_ACCESS_KEY}
+  secret-key: ${RUSTFS_SECRET_KEY}
+  bucket: ${RUSTFS_BUCKET:winter-upload-v2}
+  path-style-access: true
